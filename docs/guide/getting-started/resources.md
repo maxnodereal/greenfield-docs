@@ -62,6 +62,3 @@ Greenfield Data Network is a separate blockchain system connected to BNB Smart C
 - [Greenfield-Cmd](https://github.com/bnb-chain/greenfield-cmd): the most powerful command line to interact with Greenfield system.
 - [Greenfield-Common](https://github.com/bnb-chain/greenfield-common): a common library for different repos of greenfield.
 
-## Other
-
-- [awesome-cosmos](https://github.com/cosmos/awesome-cosmos): A community curated list of awesome projects related to the Cosmos ecosystem
