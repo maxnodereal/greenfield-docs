@@ -313,6 +313,20 @@ Alternatively, you can check the proposal to know about its execution status.
 ./build/bin/gnfd query gov proposal {proposal_id} --node https://gnfd-testnet-fullnode-tendermint-us.bnbchain.org:443
 ```
 
+### 4. Activate SP
+
+#### Storage Provider Standard Test
+After the proposal has passed, the status of SP is `STATUS_IN_MAINTENANCE`. To prevent being slashed due to functional abnormalities, 
+you should first perform a full functional test using the maintenance account. You can refer to the [SP standard test](https://github.com/bnb-chain/greenfield-sp-standard-test).
+
+#### Update SP status
+Once the testing is completed, you need to send a tx to activate the SP to `STATUS_IN_SERVICE`.
+
+```shell
+./build/bin/gnfd tx sp update-status [sp-address] STATUS_IN_SERVICE [flags]
+```
+Refer to [Maintenance Mode](../../core-concept/storage-provider-lifecycle.md#in-maintenance) for more details.
+
 ## Storage Provider Operations
 ### Deposit collateral
 
@@ -329,14 +343,7 @@ This command is used to edit the information of the SP, including endpoint, desc
 ```shell
 gnfd tx sp edit-storage-provider [sp-address] [flags]
 ```
-
-## Verify Functions
-
-### Storage Provider Standard Test
-
-It's required for all SP to run this [standard test](https://github.com/bnb-chain/greenfield-sp-standard-test  ) to make sure your SP is running as expected.
-
-### Tools
+## Tools
 
 SP can use Greenfield Cmd or DCellar to verify SP functions in Testnet:
 
