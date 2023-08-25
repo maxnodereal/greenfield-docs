@@ -97,6 +97,34 @@ Please follow this [doc](./piece-store) to config your PieceStore.
 
 #### 1. Support both path-style and virtual-style routers in https certificates
 
+You need certificates for SP's exposed gateway service domain name and wildcard subdomain name of it, say you exposed your SP's gateway service on https://my-sp1.testnet.dummy-sp.io, then you need SSL certificates for both `my-sp1.testnet.dummy-sp.io` and `*.my-sp1.testnet.dummy-sp.io`.
+For instance, if you reqeust AWS ACM certificate, you could request with this:
+![SP AWS ACM CERT](../../../../static/asset/407-SP-AWS-ACM-Cert.jpg)
+
+Also, route all traffic from both `my-sp1.testnet.dummy-sp.io` and `*.my-sp1.testnet.dummy-sp.io` to gateway service, for instance, if you use nginx for ingress control, then you'll need to configure rules look like the following:
+```yaml
+rules:
+  - host: my-sp1.testnet.dummy-sp.io
+    http:
+      paths:
+      - backend:
+          service:
+            name: gateway # where your SP gateway service is internally, such a k8s service.
+            port:
+              number: 9033
+        path: /
+        pathType: ImplementationSpecific
+  - host: '*.my-sp1.testnet.dummy-sp.io'
+    http:
+      paths:
+      - backend:
+          service:
+            name: gateway # the same with the above one.
+            port:
+              number: 9033
+        path: /
+        pathType: ImplementationSpecific
+```
 #### 2. Cross Region Configuration
 When working with web applications (e.g. DCellar),  SPs need to allow cross region requests.
 See : https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors
@@ -175,29 +203,13 @@ You can query the governance parameters [here](https://docs.bnbchain.org/greenfi
 | Storage Provider Proposal Deposit | 0.00003 BNB |
 | Edit Storage Provider     |  0.1BNB       |
 
-
-### 1. Authorization
-
-Before creating the storage provider, it is necessary to allow the module account of the gov module to deduct the tokens from the funding account specified by the SP, because the addition of CreateStorageProvider requires submitting a proposal to the gov module, and only after enough validators approve can the SP be truly created on the chain and provide services externally. The address of the gov module account is `0x7b5Fe22B5446f7C62Ea27B8BD71CeF94e03f3dF2`.
-
-```shell
-./build/bin/gnfd keys show operator --keyring-backend os 
-./build/bin/gnfd tx sp grant 0x7b5Fe22B5446f7C62Ea27B8BD71CeF94e03f3dF2 --spend-limit 1000000000000000000000BNB --SPAddress {operator_address} --from {funding_address} --keyring-backend os --node https://gnfd-testnet-fullnode-tendermint-us.bnbchain.org:443 
-```
-
-The above command requires the funding account of the SP to send the transaction to allow the gov module to have permission to deduct tokens from the funding account of SP which is specified by the operator address.
-
-:::note
-You can execute this command to query on-chain parameters. `./gnfd q sp params --node https://gnfd-testnet-fullnode-tendermint-us.bnbchain.org:443`
-:::
-
-### 2. Submit-proposal
+### 1. Submit-proposal
 
 The SP needs to initiate an on-chain proposal that specifies the Msg information to be automatically executed after the vote is approved. In this case, the Msg is `MsgCreateStorageProvider`. It's worth noting that the deposit tokens needs to be greater than the minimum deposit tokens specified on the chain.
 
 ```shell
 
-./build/bin/gnfd tx sp create-storage-provider path/to/create_storage_provider.json --from funding  --node https://gnfd-testnet-fullnode-tendermint-us.bnbchain.org:443
+./build/bin/gnfd tx sp create-storage-provider path/to/create_storage_provider.json --from funding  --node https://gnfd-testnet-fullnode-tendermint-us.bnbchain.org:443 --chain-id "greenfield_5600-1"
 
 # create_sp.json
 $ cat ./create_sp.json
@@ -223,7 +235,7 @@ $ cat ./create_sp.json
       "amount":"1000000000000000000000"
     },
     "read_price": "0.108",
-    "store_price": "0.016"",
+    "store_price": "0.016",
     "free_read_quota": 10000,
     "creator":"0x7b5Fe22B5446f7C62Ea27B8BD71CeF94e03f3dF2",
     "bls_key": "{bls_pub_key}",
@@ -253,7 +265,7 @@ curl -X GET "https://gnfd-testnet-fullnode-tendermint-us.bnbchain.org/cosmos/aut
 * `creator` is the address of `gov module` 
 * `metadata` is optional
 
-### 3. Deposit BNB to proposal
+### 2. Deposit BNB to proposal
 
 :::note
 You can get the mininum deposit for proposal by the above command. Please make sure that the initial deposit is greater than `min_deposit` when submitting the proposal.
@@ -267,10 +279,10 @@ You can skip this step if the initial deposit amount is greater than the min dep
 Each proposal needs to deposit enough tokens to enter the voting phase.
 
 ```shell
-./build/bin/gnfd tx gov deposit {proposal_id} 1BNB --from {funding_address} --keyring-backend os --node https://gnfd-testnet-fullnode-tendermint-us.bnbchain.org:443
+./build/bin/gnfd tx gov deposit {proposal_id} 1BNB --from {funding_address} --keyring-backend os --node https://gnfd-testnet-fullnode-tendermint-us.bnbchain.org:443 --chain-id "greenfield_5600-1"
 ```
 
-### 4. Wait voting and check voting result
+### 3. Wait voting and check voting result
 
 After submitting the proposal successfully, you must wait for the voting to be completed and the proposal to be approved. It will last **7 days** on mainnet while **1 day** on testnet. Once it has passed and is executed successfully, you can verify that the storage provider has been joined.
 
