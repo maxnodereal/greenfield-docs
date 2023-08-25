@@ -41,7 +41,7 @@ make: *** [build] Error 1
 2. Start Greenfield Blockchain
 
 ```shell
-# 1 validator and 7 storage providers
+# 1 validator and 8 storage providers
 bash ./deployment/localup/localup.sh all 1 8
 ```
 
@@ -58,11 +58,13 @@ bash ./deployment/localup/localup.sh export_sps 1 8
 #     "SealAddress": "0x8e424c6Db42Ad9A5d91b24e20b5f603eC70abbA3",
 #     "ApprovalAddress": "0x7Aa5C8B50696f1D15B3A60d6629f7318c605bb4C",
 #     "GcAddress": "0xfa238a4B262e1dc35c4970A2296A2444B956c9Ca",
+#     "MaintenanceAddress": "0xbE03316B1D7c3FCB69136e47e02442d6Fb3396dB",
 #     "OperatorPrivateKey": "ba6e97958d9c43d1ad54923eba99f8d59f54a0c66c78a5dcbc004c5c3ec72f8c",
 #     "FundingPrivateKey": "bd9d9e7823cd2dc7bc20f1b6676c3025cdda6cf5a8df9b04597fdff42c29af01",
 #     "SealPrivateKey": "aacd6b834627fdbc5de2bfdb1db31be0ea810a941854787653814c8040a9dd39",
 #     "ApprovalPrivateKey": "32108ed1a47c0af965824f84ac2162c029f347eec6d0988e642330b0ac264c85",
-#     "GcPrivateKey": "2fad16031b4fd9facb7dacda3da4ca4dd5f005f4166891bf9f7be13e02abb12d"
+#     "GcPrivateKey": "2fad16031b4fd9facb7dacda3da4ca4dd5f005f4166891bf9f7be13e02abb12d",
+#     "MaintenancePrivateKey": "cc38f4c004f73a810223776376a37a8ab3ed8204214f5a3a0a2f77f7bb5e2dc1",
 #     "BlsPrivateKey": "6f349866f18413abb1a78cab947933459042044649686f354e941a646b9ed6e7"
 #   }
 #   ...

@@ -16,22 +16,23 @@ The following lists the recommended hardware requirements:
 * At least 1 TB disk space for backend storage;
 * 50GB+ SQL database;
 * Piece Store: AWS S3, MinIO(Beta);
-* 5 Greenfield accounts with enough BNB tokens.
+* 6 Greenfield accounts with enough BNB tokens.
 
 :::danger IMPORTANT
-Each storage provider will hold 6 different accounts serving different purposes
+Each storage provider will hold 7 different accounts serving different purposes
 :::
 
 ### Wallet Preparation
 
-* Operator Account: Used to edit the information of the StorageProvider. Please make sure it have enough BNB to deposit the create storage provider proposal(1 BNB) and pay the gas fee of `EditStorageProvider` transaction.
+* Operator Account: Used to edit the information of the StorageProvider. Please make sure it has enough BNB to deposit the create storage provider proposal(1 BNB) and pay the gas fee of `EditStorageProvider` and `UpdateStorageProviderStatus` transactions.
 * Funding Account: Used to deposit staking tokens and receive earnings. It is important to ensure that there is enough money in this account, and the user must submit a deposit as a guarantee. At least **1000+** BNB are required for staking. You should use this address to send `CreateValidator` proposal on-chain. 
 * Seal Account: Used to seal the user's object. Please make sure it has enough BNB to pay the gas fee of `SealObject` transaction.
 * Approval Account: Used to approve user's requests. This account does not require holding BNB tokens.
 * GC Account: It is a special address for sp and is used by sp to clean up local expired or unwanted storage. Please make sure it has enough BNB tokens because it's going to keep sending transactions up the chain.
+* Maintenance Account: It is used for SP self-testing while in maintenance mode. This account for creating bucket and object will be allowed-listed by Chain while other users' create request will fail.
 * Bls Account: Used to create bls signature when sealing objects to ensure integrity, it does not need to be deposited. 
 
-You can use the below command to generate this six accounts:
+You can use the below command to generate these seven accounts:
 
 ```shell
 ./build/bin/gnfd keys add operator --keyring-backend os
@@ -39,10 +40,11 @@ You can use the below command to generate this six accounts:
 ./build/bin/gnfd keys add seal --keyring-backend os
 ./build/bin/gnfd keys add approval --keyring-backend os
 ./build/bin/gnfd keys add gc --keyring-backend os
+./build/bin/gnfd keys add maintenance --keyring-backend os
 ./build/bin/gnfd keys add bls --keyring-backend os --algo eth_bls
 ```
 
-and then export the private key to prepare for SP deployment:
+and then export these private keys to prepare for SP deployment:
 
 ```shell
 ./build/bin/gnfd keys export operator --unarmored-hex --unsafe  --keyring-backend os
@@ -53,7 +55,13 @@ and then export the private key to prepare for SP deployment:
 ./build/bin/gnfd keys export bls --unarmored-hex --unsafe --keyring-backend os
 ```
 
-Please keep these six private keys safe!
+maintenance account is not needed for SP deployment, but you should export it to conduct self-test:
+
+```shell
+./build/bin/gnfd keys export maintenance --unarmored-hex --unsafe --keyring-backend os
+```
+
+Please keep these seven private keys safe!
 
 Also, obtain bls public key, bls proof to fill in the proposal of creating Storage Provider
 
@@ -67,7 +75,7 @@ bls_proof:
 ```
 
 
-### Databbase Configuration
+### Database Configuration
 
 You should create three databases: SpDB, BsDB and BsDBBackup, take MySQL as an example, other DB is the same:
 
@@ -174,7 +182,7 @@ cd greenfield-storage-provider/build
 
 You can learn about how to write your `config.toml` file [here](./config)
 
-It's recommended to deploy Kubernetes cluser following this [guide](https://github.com/bnb-chain/greenfield-sp-deployment/blob/main/docs/README.md). The corresonding config file is [here](https://github.com/bnb-chain/greenfield-sp-deployment/blob/main/docs/k8s/aws/config.toml).
+It's recommended to deploy Kubernetes cluster following this [guide](https://github.com/bnb-chain/greenfield-sp-deployment/blob/main/docs/README.md). The corresonding config file is [here](https://github.com/bnb-chain/greenfield-sp-deployment/blob/main/docs/k8s/aws/config.toml).
 
 
 ### 3. Run SP
@@ -190,7 +198,7 @@ You can prepare your monitoring dashboard following [this guide](./infra-deploym
 
 ## Add Storage Provider to Greenfield testnet
 
-Greenfield Blockchain valdiators are responsible for selecting storage providers. For each on-chain proposal to add new storage provider, there are deposit period for depositing BNB and voting period for validators to make votes. Once the proposal passes, new SP can join the network afterwards.
+Greenfield Blockchain validators are responsible for selecting storage providers. For each on-chain proposal to add new storage provider, there are deposit period for depositing BNB and voting period for validators to make votes. Once the proposal passes, new SP can join the network afterwards.
 
 You can query the governance parameters [here](https://docs.bnbchain.org/greenfield-docs/docs/greenfield-api/gov-v-1-params)
 
@@ -229,6 +237,7 @@ $ cat ./create_sp.json
     "seal_address":"{seal_address}",
     "approval_address":"{approval_address}",
     "gc_address":"{gc_address}",
+    "maintenance_address": "{maintenance__address}",
     "endpoint": "https://sp0.greenfield.io",
     "deposit":{
       "denom":"BNB",

@@ -36,6 +36,7 @@ It will take several transactions to join the greenfield storage network for sto
 3. Deposit enough BNB tokens for the proposal;
 4. The validators should either vote `Pass` or `reject` for the proposal;
 5. When more than half of the validators have voted, the storage provider will be automatically created on chain.
+6. The SP status will be `STATUS_IN_MAINTENANCE` after created, it must send a transaction to update its status to `STATUS_IN_SERVICE` to activate itself.
 
 ### Leave the network
 
@@ -52,6 +53,7 @@ For more information, please see [SP exit](../modules/virtual-group.md#sp-exit-w
 The storage provider can be in one of these several statuses:
 
 * `STATUS_IN_SERVICE`: The SP is in service. it can serve user's Create/Upload/Download request.
+* `STATUS_IN_MAINTENANCE`: The SP is in maintenance. it can not serve user's Create/Upload request. It might be able to serve Download request.
 * `STATUS_GRACEFUL_EXITING`: The SP is exiting gracefully. All the object stored in it will be shifted to another sp.
 
 The storage providers metadata should be primarily stored and accessed by the `OperatorAddr`, an EIP712 account address
@@ -80,20 +82,22 @@ message StorageProvider {
   string approval_address = 5 [(cosmos_proto.scalar) = "cosmos.AddressString"];
   // gc_address defines one of the storage provider's accounts which is used for gc purpose.
   string gc_address = 6 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  // maintenance_address defines one of the storage provider's accounts which is used for testing while in maintenance mode
+  string maintenance_address = 7 [(cosmos_proto.scalar) = "cosmos.AddressString"];
   // total_deposit defines the number of tokens deposited by this storage provider for staking.
-  string total_deposit = 7 [
+  string total_deposit = 8 [
     (cosmos_proto.scalar) = "cosmos.Int",
     (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int",
     (gogoproto.nullable) = false
   ];
   // status defines the current service status of this storage provider
-  Status status = 8;
+  Status status = 9;
   // endpoint define the storage provider's network service address
-  string endpoint = 9;
+  string endpoint = 10;
   // description defines the description terms for the storage provider.
-  Description description = 10 [(gogoproto.nullable) = false];
+  Description description = 11 [(gogoproto.nullable) = false];
   // bls_key defines the bls pub key of the Storage provider for sealing object and completing migration
-  bytes bls_key = 11;
+  bytes bls_key = 12;
 }
 ```
 
@@ -110,12 +114,28 @@ message Params {
 
   // deposit_denom defines the staking coin denomination.
   string deposit_denom = 1;
-  // min_deposit_amount defines the minimum deposit amount for storage providers.
+  // min_deposit defines the minimum deposit amount for storage providers.
   string min_deposit = 2 [
     (cosmos_proto.scalar) = "cosmos.Int",
     (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int",
     (gogoproto.nullable) = false
   ];
+  // the ratio of the store price of the secondary sp to the primary sp, the default value is 80%
+  string secondary_sp_store_price_ratio = 3 [
+    (cosmos_proto.scalar) = "cosmos.Dec",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable) = false
+  ];
+  // previous blocks that be traced back to for maintenance_records
+  int64 num_of_historical_blocks_for_maintenance_records = 4 [(gogoproto.moretags) = "yaml:\"num_of_historical_blocks_for_maintenance_records\""];
+  // the max duration that a SP can be in_maintenance within num_of_historical_blocks_for_maintenance_records
+  int64 maintenance_duration_quota = 5 [(gogoproto.moretags) = "yaml:\"maintenance_duration_quota\""];
+  // the number of blocks to be wait for sp to be in maintenance mode again if already requested
+  int64 num_of_lockup_blocks_for_maintenance = 6 [(gogoproto.moretags) = "yaml:\"num_of_lockup_blocks_for_maintenance\""];
+  // the time interval to update global storage price, if it is not set then the price will be updated at the first block of each natural month
+  uint64 update_global_price_interval = 7 [(gogoproto.moretags) = "yaml:\"update_global_price_interval\""];
+  // the days counting backwards from end of a month in which a sp cannot update its price
+  uint32 update_price_disallowed_days = 8 [(gogoproto.moretags) = "yaml:\"update_price_disallowed_days\""];
 }
 ```
 
@@ -132,15 +152,30 @@ A storage provider is created using the `MsgCreateProvider` messages.
 ```protobuf
 message MsgCreateStorageProvider {
   option (cosmos.msg.v1.signer) = "creator";
-
+  
   string creator = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
   Description description = 2 [(gogoproto.nullable) = false];
   string sp_address = 3 [(cosmos_proto.scalar) = "cosmos.AddressString"];
   string funding_address = 4 [(cosmos_proto.scalar) = "cosmos.AddressString"];
   string seal_address = 5 [(cosmos_proto.scalar) = "cosmos.AddressString"];
   string approval_address = 6 [(cosmos_proto.scalar) = "cosmos.AddressString"];
-  string endpoint = 7;
-  cosmos.base.v1beta1.Coin deposit = 8 [(gogoproto.nullable) = false];
+  string gc_address = 7 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  string maintenance_address = 8 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  string endpoint = 9;
+  cosmos.base.v1beta1.Coin deposit = 10 [(gogoproto.nullable) = false];
+  string read_price = 11 [
+    (cosmos_proto.scalar) = "cosmos.Dec",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable) = false
+  ];
+  uint64 free_read_quota = 12;
+  string store_price = 13 [
+    (cosmos_proto.scalar) = "cosmos.Dec",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable) = false
+  ];
+  string bls_key = 14;
+  string bls_proof = 15;
 }
 ```
 
@@ -162,13 +197,20 @@ message MsgEditStorageProvider {
   string sp_address = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
   string endpoint = 2;
   Description description = 3 [(gogoproto.nullable) = false];
+  string seal_address = 4 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  string approval_address = 5 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  string gc_address = 6 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  string maintenance_address = 7 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  string bls_key = 8;
+  string bls_proof = 9;
 }
 ```
 
 This message is expected to fail if:
 
-* The storage provider is not existed;
+* The storage provider is not existed.
 * The description fields are too large.
+* The bls_proof verification failed.
 
 ### MsgDeposit
 
@@ -193,3 +235,20 @@ This message is expected to fail if:
 
 * The storage provider doesn't exist;
 * The tokens that are deposited do not belong to the denomination that is specified as the deposit denomination of the SP module.
+
+
+```protobuf
+// MsgUpdateStorageProviderStatus is used to update the status of a SP by itself
+message MsgUpdateStorageProviderStatus {
+  option (cosmos.msg.v1.signer) = "sp_address";
+  string sp_address = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  Status status = 2;
+  int64 duration = 3;
+}
+```
+
+This message is expected to fail if:
+
+* The storage provider doesn't exist;
+* The status is not changed
+* The restrictions violated
