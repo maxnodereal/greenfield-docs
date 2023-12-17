@@ -337,6 +337,7 @@ const sidebars = {
           link: {type:'doc', id:'tutorials/dapp/overview'},
           items:[
             "tutorials/dapp/hosting-websites/overview",
+             "tutorials/dapp/nft-migration/overview",
             "tutorials/dapp/file-management/overview",
             "tutorials/dapp/resumable-upload/overview",
             "tutorials/dapp/4everland-hosting/overview",
