@@ -3,6 +3,13 @@ info:
   title: Greenfield - gRPC Gateway docs
   description: A REST interface for state queries
   version: 1.0.0
+
+servers:
+  - url: https://greenfield-chain.bnbchain.org
+    description: Mainnet RPC (uses live data)
+  - url: https://gnfd-testnet-fullnode-tendermint-us.bnbchain.org
+    description: Testnet RPC (uses test data)
+
 paths:
   /greenfield/bridge/params:
     get:
@@ -51,7 +58,7 @@ paths:
                       format: byte
       tags:
       - bridge
-      description:         Parameters queries the parameters of the module.
+      description: Parameters queries the parameters of the module.
   /greenfield/challenge/attested_challenge:
     get:
       summary: AttestedChallenge
@@ -187,7 +194,8 @@ paths:
                       - CHALLENGE_SUCCEED
                       default: CHALLENGE_FAILED
                   description: AttestedChallenge records the challenge which are attested.
-            description: QueryLatestAttestedChallengesResponse is response type for
+            description: >-
+              QueryLatestAttestedChallengesResponse is response type for
               the Query/LatestAttestedChallenges RPC method.
         default:
           description: An unexpected error response.
@@ -7635,7 +7643,8 @@ paths:
                     title: 'total is total number of results available if PageRequest.count_total
 
                       was set, its value is undefined otherwise'
-            description: QueryGranterGrantsResponse is the response type for the Query/GranterGrants
+            description: >-
+              QueryGranterGrantsResponse is the response type for the Query/GranterGrants
               RPC method.
         default:
           description: An unexpected error response.
@@ -9044,7 +9053,8 @@ paths:
   /cosmos/base/tendermint/v1beta1/abci_query:
     get:
       summary: ABCIQuery
-      description:         ABCIQuery defines a query handler that supports ABCI queries
+      description: >-
+        ABCIQuery defines a query handler that supports ABCI queries
         directly to the
 
         application, bypassing Tendermint completely. The ABCI query must contain
