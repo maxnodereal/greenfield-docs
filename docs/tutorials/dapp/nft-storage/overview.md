@@ -1,4 +1,4 @@
-# Best Practice for Storing NFT Data using Greenfield
+# Best Practice for Storing NFT
 
 ## Overview
 
@@ -36,7 +36,7 @@ Once NFT media are uploaded on Greenfield, it will generate an unique URL for ea
 
 Here's an example of media Stored on Greenfield:
 
-https://greenfield-sp.bnbchain.org/view/gnfd-bucket/999.png
+https://greenfield-sp.bnbchain.org/view/zealy-rewards/zealy-reward.jpg
 
 ### Store Metadata Json on Greenfield
 
@@ -62,7 +62,11 @@ For NFT collections of less than 100 files, DCellar WebUI supports uploading mul
 
 Usually, NFT collections might contain thousands NFTs at a time, [gnfd-cmd](https://docs.bnbchain.org/greenfield-docs/docs/tutorials/cli/file-management/overview) can be a better tool to upload multiple files at one time.
 
-To begin, follow Greenfield documentation to[ Set up Environment](https://docs.bnbchain.org/greenfield-docs/docs/tutorials/cli/file-management/overview#setting-up-the-environment) and [ Import Account and Generating Keystore](https://docs.bnbchain.org/greenfield-docs/docs/tutorials/cli/file-management/overview#impport-account-and-generating-keystore)
+:::info
+Please make sure your `gnfd-cmd` is the newest version.
+:::
+
+To begin, follow Greenfield documentation to [Set up Environment](https://docs.bnbchain.org/greenfield-docs/docs/tutorials/cli/file-management/overview#setting-up-the-environment) and [ Import Account and Generating Keystore](https://docs.bnbchain.org/greenfield-docs/docs/tutorials/cli/file-management/overview#impport-account-and-generating-keystore)
 
 **Create a bucket for Your NFT Collection**
 
