@@ -1,5 +1,7 @@
 ---
 title: Developer Quick Guide
+description: Quick guide for BNB Greenfield developers. You will uderstand what you need to build your project.
+keywords: [BNB Greenfield development, data storage development]
 order: 8
 ---
 
@@ -116,5 +118,4 @@ Follow the decision-making guide below, to see which resource is recommended for
 ### Storage onramp
 
 https://dcellar.io/
-
 

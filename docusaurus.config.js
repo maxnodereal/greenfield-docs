@@ -60,7 +60,11 @@ const config = {
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
+    (
+    {
+      metadata: [
+      {name: 'keywords', content: 'decentralized storage, blockchain storage solution'},
+      ],
       docs: {
         sidebar: {
           hideable: true

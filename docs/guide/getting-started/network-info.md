@@ -1,5 +1,9 @@
 ---
 siebar_label: Network Information 
+Title: Greenfield network information
+description: Greenfield network information and explorer link
+Keywords: [Greenfield Mainnet, Greenfield Testnet, Greenfield explorer]
+order: 4
 ---
 
 # Network Information

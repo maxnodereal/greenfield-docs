@@ -1,20 +1,23 @@
 ---
-siebar_label: Token Transfer
+siebar_label: BNB Transfer
+title: BNB Transfer
+description: Guideline about how to transfer BNB in Greenfield and cross-chain
+order: 5
 ---
 
-# Token Transfer
+# BNB Transfer
 
-The address formats of Greenfield and BSC are fully compatible. Users can transfer BNB between Greenfield and BSC freely.
-However, Greenfield only supports BNB and does not support BEP20 tokens currently. Here is a guide on how to transfer
-BNBs on Greenfield.
+The address formats of Greenfield and BSC are fully compatible. Users can transfer BNB between Greenfield and BSC freely. However, Greenfield only supports BNB and does not support BEP20 tokens currently. 
 
-## BSC to Greenfield
+Here is a guide on how to transfer BNB in Greenfield Blockchain and cross-chain.
+
+## Cross-chain BNB Transfer from BSC to Greenfield
 
 To perform a cross-chain transfer from BNB Smart Chain (BSC) to Greenfield, follow these steps:
 
 1. Visit [Greenfield Bridge](https://greenfield.bnbchain.org/en/bridge?type=transfer-in).
 
-2. Connect wallet and switch to the BSC network.
+2. Connect your wallet and switch to the BSC network.
 
 ![Greenfield-Bridge-Transfer-In](../../../static/asset/207-Bridge-Transfer-In.png)
 
@@ -28,13 +31,13 @@ To perform a cross-chain transfer from BNB Smart Chain (BSC) to Greenfield, foll
 You can also use [DCellar](https://dcellar.io/) and follow [How to Transfer In](https://docs.nodereal.io/docs/dcellar-get-started#transfer-in)
 to transfer BNBs from BSC to Greenfield.
 
-## Greenfield to BSC
+## Cross-chain BNB Transfer from Greenfield to BSC
 
 To perform a cross-chain transfer from Greenfield to Binance Smart Chain (BSC), follow these steps:
 
 1. Visit [Greenfield Bridge](https://greenfield.bnbchain.org/en/bridge?type=transfer-out).
 
-2. Connect wallet and switch to the Greenfield network.
+2. Connect your wallet and switch to the Greenfield network.
 
 ![Greenfield-Bridge-Transfer-Out](../../../static/asset/208-Bridge-Transfer-Out.png)
 
@@ -49,15 +52,13 @@ You can also use [DCellar](https://dcellar.io/) and follow [How to Transfer Out]
 to transfer BNBs from Greenfield to BSC.
 
 :::note
-One thing to note, if the value of the cross chain transfer is over 1000BNB, the funds will be locked in `TokenHub` for 12 hours before they can be withdrawn.
+One thing to note is if the value of the cross-chain transfer is over 1000BNB, the funds will be locked in `TokenHub` for 12 hours before they can be withdrawn.
 Usually, a third-party server will help withdraw the unlocked token to the recipient, and users can also withdraw to the recipient themselves by following [unlock document](https://github.com/bnb-chain/greenfield-contracts#large-transfer-unlock)
 :::
 
-## Internal Transfers within Greenfield
+## BNB Transfers in Greenfield
 
-Greenfield allows for easy and secure transfers between different accounts. However, due to the particularity of the
-transaction format, it is currently not possible to transfer tokens through the built-in Send function in the wallet,
-like MetaMask. To conduct an internal transfer within Greenfield, please adhere to the following steps:
+Greenfield allows for easy and secure transfers between different accounts. However, due to the particularity of the transaction format, it is currently not possible to transfer tokens through the built-in Send function in the wallet, like MetaMask. To conduct an internal transfer within Greenfield, please adhere to the following steps:
 
 1. Visit [DCellar](https://dcellar.io/).
 

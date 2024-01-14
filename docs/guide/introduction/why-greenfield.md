@@ -1,5 +1,7 @@
 ---
 sidebar_label: Why do we need BNB Greenfield
+title: Why do we need BNB Greenfield
+description: BNB Greenfield seeks to offer users greater freedom in creating, owning, sharing, executing, and trading their data assets, while also providing transparency on how their data is owned and used.
 ---
 
 # Why do we need BNB Greenfield
