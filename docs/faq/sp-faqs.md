@@ -1,5 +1,7 @@
 ---
 title: SP FAQ
+description: A list of BNB Greenfield frequently asks questions about Storage Provider.  
+keywords: [BNB Greenfield Storage Provider, BNB Greenfield Storage Provider Requirements]
 ---
 
 ### What are requirements for Greenfield Storage Provider?

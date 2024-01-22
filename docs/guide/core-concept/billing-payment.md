@@ -29,7 +29,7 @@ The storage fee calculation is:
 Storage Fee = sum(ChargedSize) * (PrimaryStorePrice + SecondaryStorePrice*SecondarySPNumber) * (1+Validator Tax Rate) * ReserveTime
 ```
 
-Users are granted a free, time-based quota for downloading data, with each bucket corresponding to a set of their objects. If the quota is exceeded, users can upgrade their data package to obtain additional quota. The price for each data package is fixed for a certain period (unless the read price has been changed and the user takes some actions to reflect the price change), during which users will only be charged based on the amount of time they spend downloading and the package price. This charging scheme remains in effect until the user modifies their data package settings.
+Users are granted a free, time-based quota for downloading data, with each bucket corresponding to a set of their objects. If the quota is exceeded, users can upgrade their data package to obtain an additional quota. The price for each data package is fixed for a certain period (unless the read price has been changed and the user takes some actions to reflect the price change), during which users will only be charged based on the amount of time they spend downloading and the package price. This charging scheme remains in effect until the user modifies their data package settings.
 
 The download quota fee calculation is:
 
@@ -38,7 +38,7 @@ Download Quota Fee Fee = ChargedReadQuota * ReadPrice * (1 + Validator Tax Rate)
 ```
 
 ### Global Virtual Group Family & Global Virtual Group
-For storage fee, it will be not streamed to storage providers directly. It will be streamed to:
+For storage fees, it will be not streamed to storage providers directly. It will be streamed to:
 - Global Virtual Group Family's virtual funding address for **data package fee** and primary sp's **object storage fee**
 - Global Virtual Group's virtual funding address for all secondary sp's **object storage fee**
 - Validator tax pool for extra tax fee (e.g. 1%), which will be used for rewarding data availability challenge submitters.
@@ -55,8 +55,8 @@ accounts to pay for storage and bandwidth.
 
 The address format of the payment account is the same as normal accounts.
 It's derived by the hash of the user address and payment account index.
-However, the payment accounts are actually only logical ones and only exist in the storage payment module.
-Users can deposit into, withdraw from and query the balance of payment accounts on the Greenfield blockchain,
+However, the payment accounts are only logical ones and only exist in the storage payment module.
+Users can deposit into, withdraw from, and query the balance of payment accounts on the Greenfield blockchain,
 but users cannot use payment accounts to perform staking or other on-chain transactions.
 Payment accounts can be set as "non-refundable". Users cannot withdraw funds from such payment accounts.
 
@@ -70,7 +70,7 @@ in a similar way to how SPs claim to stop services to certain objects. In such a
 from Greenfield completely.
 
 :::warning
-If users fail to renew their subscription in a timely manner, **there is a risk of their stored data being permanently
+If users fail to renew their subscription on time, **there is a risk of their stored data being permanently
 deleted.**
 :::
 

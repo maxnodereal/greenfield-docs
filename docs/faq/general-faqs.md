@@ -1,9 +1,11 @@
 ---
 title: General FAQ
+description: A list of BNB Greenfield frequently asks questions.  
+keywords: [BNB Greenfield token, BNB Greenfield usage]
 ---
 
 ### Why can't I send BNB tokens on BNB Greenfield using my wallet?
-Wallet does not support transfers on BNB Greenfield because BNB Greenfield use a different transaction format than other EVM chains. You may encounter the following error when you transfer your token with your wallet.To send BNB tokens on BNB Greenfield, you need to use [dCellar Transfer function](../guide/getting-started/token-transfer.md#internal-transfers-within-greenfield).
+Wallet does not support transfers on BNB Greenfield because BNB Greenfield uses a different transaction format than other EVM chains. You may encounter the following error when you transfer your token with your wallet. To send BNB tokens on BNB Greenfield, you need to use [dCellar Transfer function](../guide/getting-started/token-transfer.md#internal-transfers-within-greenfield).
 
 <img
   src={require('../../static/img/transfer_error.png').default}
@@ -24,19 +26,18 @@ BNB remains the main utility token on Greenfield, no other token on Greenfield.
 You can acquire BNB in multiple ways:
 
 1. [Buy BNB](https://www.binance.com/en/how-to-buy/bnb) if you never own it.
-2. Cross chain transfer BNB from BSC network to Greenfield using [DCellar](https://dcellar.io/) if you already own any BNB. You can read the detailed steps [here](https://docs.nodereal.io/docs/dcellar-get-started). The cross-chain token transfer is really fast, you are supposed to receive your BNB within a minute.
+2. Cross-chain transfer BNB from BSC network to Greenfield using [DCellar](https://dcellar.io/) if you already own any BNB. You can read the detailed steps [here](https://docs.nodereal.io/docs/dcellar-get-started). The cross-chain token transfer is really fast, you are supposed to receive your BNB within a minute.
 3. Receive BNB from other Greenfield users with [internal transactions](../guide/getting-started/token-transfer.md#internal-transfers-within-greenfield)
 
 ### What is the utility of BNB on Greenfield?
 
-BNB is used as staking token, gas token, storage service fee token, governance token. Refer to [token economics](../guide/core-concept/gas-fees.md)
+BNB is used as a staking token, gas token, storage service fee token, and governance token. Refer to [token economics](../guide/core-concept/gas-fees.md)
 for more details.
 
 ### Does Greenfield support smart contract?
 
-The Greenfield blockchain does not support smart contract, but the native cross chain between BSC and Greenfield bring
-programmability to the ecosystem. More tech details is explained [here](../guide/core-concept/programmability.md),
-you can start integrating smart contract with Greenfield following the [tutorial](../tutorials/access-control/quick-start.mdx).
+The Greenfield blockchain does not support smart contracts, but the native cross-chain between BSC and Greenfield brings programmability to the ecosystem. More tech details are explained [here](../guide/core-concept/programmability.md),
+you can start integrating smart contracts with Greenfield following the [tutorial](../tutorials/access-control/quick-start.mdx).
 
 ### What consensus algorithm does Greenfield run on?
 
@@ -44,13 +45,13 @@ you can start integrating smart contract with Greenfield following the [tutorial
 
 ### Is the file permanently stored in Greenfield?
 
-No. Currently, Greenfield charge storages fees in a stream manner, so if a user's account balance is insufficient and in arrears, it is possible that their data may be lost and cannot be recovered.
+No. Currently, Greenfield charges storage fees in a stream manner, so if a user's account balance is insufficient and in arrears, it is possible that their data may be lost and cannot be recovered.
 
 Greenfield may support permanent storage in the future.
 
 ### Can I update the files after it is uploaded?
 
-Update is not yet supported, but it can be accomplished through deletion and upload.
+The update is not yet supported, but it can be accomplished through deletion and upload.
 
 ### Can I enjoy lower price for the data I previously stored if the storage price goes down?
 
@@ -78,11 +79,12 @@ Testnet is used for testing, so it won't keep user's data for a long time. It is
 
 ### What to do if you are unable to upgrade Greenfield in time?
 
- Since this is a hardfork, your gnfd binary cannot continue running if it’s not upgraded in time. 
- Add the following filed in app.toml:
+ Since this is a hardfork, your `gnfd` binary cannot continue running if it’s not upgraded in time. 
+ Add the following filed in `app.toml`:
+ ```
  # chain-id for op bnb destination chain 
  `dest-op-chain-id = 204`
-
+ ```
  Stop the binary, then execute the rollback command:
  `gnfd rollback --hard`
  Finally, restart your binary.

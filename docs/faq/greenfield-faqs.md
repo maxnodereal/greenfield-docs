@@ -1,5 +1,7 @@
 ---
 title: FAQs
+description: A list of BNB Greenfield frequently asks questions.  
+keywords: [BNB Greenfield token, BNB Greenfield usage]
 ---
 
 In this section of the documentation, we cover FAQs related to BNB Greenfield. For easy navigation, we have divided the FAQs into multiple categories.

@@ -1,18 +1,19 @@
 ---
 title: Accounts
+description: Greenfield defines its account in the same format as BSC and Ethereum.
+keywords: [BNB Greenfield address, BNB Greenfield signature]
 order: 1
 ---
 
 # Accounts
-Each user has their own address as the identifier for his/her account.
+Each Greenfield user has their own address as the identifier for his/her account.
 The addresses can create objects to store on Greenfield, bear and manage
 the permissions, and pay fees.
 
 Greenfield defines its account in the same format as BSC and Ethereum.
 It starts with ECDSA secp256k1 curve for keys and is compliant with
 [EIP84](https://github.com/ethereum/EIPs/issues/84) for
-full
-[BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki)
+full [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki)
 paths. The root HD path for Greenfield-based accounts is
 m/44'/60'/0'/0. In the readable presentation, a Greenfield address is
 a 42-character hexadecimal string derived from the last 20 bytes of the
@@ -51,8 +52,8 @@ In the node, all data is stored using [Protocol Buffers](https://protobuf.dev/) 
 
 Greenfield only supports [secp256k1](https://en.bitcoin.it/wiki/Secp256k1) key schemes for creating digital signatures:
 
-|             | Address length in bytes | Public key length in bytes | Used for transaction authentication | Used for consensus (tendermint) |
-|:-----------:|:-----------------------:|:--------------------------:|:-----------------------------------:|:-------------------------------:|
+|             | Address length in bytes | Public key length in bytes | Used for transaction authentication | Used for consensus (Tendermint) |
+| :---------: | :---------------------: | :------------------------: | :---------------------------------: | :-----------------------------: |
 | `secp256k1` |           20            |             33             |                 yes                 |               no                |
 
 ## Addresses

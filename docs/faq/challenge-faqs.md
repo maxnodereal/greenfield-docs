@@ -1,5 +1,7 @@
 ---
 title: Challenger FAQ
+description: An explanation of BNB Greenfield Challenger 
+keywords: [BNB Greenfield validators, BNB Greenfield Challengers]
 ---
 
 # Challenger FAQ
@@ -34,5 +36,4 @@ Then, use this [API](https://docs.bnbchain.org/greenfield-docs/docs/greenfield-a
 ### How to avoid a successful challenge?
 * Backup your database regularly
 Keep [Challenger](https://docs.bnbchain.org/greenfield-docs/docs/guide/storage-provider/modules/downloader#challengepiecetask) service running to answer to challenges
-
 
