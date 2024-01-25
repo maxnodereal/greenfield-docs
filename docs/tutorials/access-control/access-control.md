@@ -1,5 +1,7 @@
 ---
 title: Native Access Control
+description: How to use Greenfield Go-SDK library to manage your buckets and objects permission.
+keywords: [BNB Greenfield, Access control, Permission]
 order: 2
 ---
 

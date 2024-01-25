@@ -1,5 +1,7 @@
 ---
 title: Greenfield for Hugging Face
+description: How to use Greenfield for building AI applications.
+keywords: [BNB Greenfield, AI, decentralized datasets]
 order: 1
 ---
 

@@ -365,6 +365,7 @@ const sidebars = {
           link: {type:'doc', id:'tutorials/ai/hugging-face-intro'},
           items:[
             "tutorials/ai/hugging-face-intro",
+            "tutorials/ai/glacier-db-tutorial",
           ]
         }
       ]
