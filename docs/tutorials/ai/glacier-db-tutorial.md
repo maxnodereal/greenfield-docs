@@ -1,6 +1,6 @@
 ---
 title: Glacier Chat With Documents
-description: How to use BSC smart contract as a simple howcase of cross chain program-ability of Greenfield..
+description: How to use BSC smart contract as a simple showcase of cross chain program-ability of Greenfield..
 keywords: [BNB Greenfield, Access control, Permission]
 order: 3
 ---
