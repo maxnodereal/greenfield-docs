@@ -35,8 +35,8 @@ Create a greenfield account, deposit BNB, and program [token transfers](token-tr
 ### Data storage
 
 Create a public bucket to upload and share objects.
-* [Greenfield CLI Example](/docs/tutorials/cli/file-management/overview)
-* [GO-SDK Example 1](/docs/tutorials/dapp/file-management/overview) and [GO-SDK Example 2](https://github.com/bnb-chain/greenfield-go-sdk/blob/v1.1.1/examples/storage.go)
+* [Greenfield CLI Example](/docs/tutorials/get-started/file-management/overview)
+* [GO-SDK Example 1](/docs/tutorials/app/file-management/basic-file-management) and [GO-SDK Example 2](https://github.com/bnb-chain/greenfield-go-sdk/blob/v1.1.1/examples/storage.go)
 * [JS-SDK Bucket API](https://docs.bnbchain.org/greenfield-js-sdk/api/bucket) and [JS-SDK Object API](https://docs.bnbchain.org/greenfield-js-sdk/api/object)
 
 
@@ -45,7 +45,7 @@ Create a public bucket to upload and share objects.
 
 Create a private bucket and share it with specific individuals.
 
-* [Greenfield CLI Example](/docs/tutorials/cli/cmd-access-control)
+* [Greenfield CLI Example](/docs/tutorials/get-started/cmd-access-control)
 * [GO-SDK Example]( https://github.com/bnb-chain/greenfield-go-sdk/blob/v1.1.1/examples/permission.go)
 * [JS-SDK Example](https://docs.bnbchain.org/greenfield-js-sdk/api/bucket#putbucketpolicy-) and [JS-SDK API](https://docs.bnbchain.org/greenfield-js-sdk/api/object#putobjectpolicy-)
 
@@ -61,11 +61,11 @@ Create a private bucket and share it with specific individuals.
 ### A Quick Start about Data Access Control Through Smart Contract
 
 - Understand the [programmability concepts](docs/guide/core-concept/programmability)
-- Follow Smart Contract SDK [tutorial](/docs/tutorials/access-control/quick-start)
+- Follow Smart Contract SDK [tutorial](/docs/tutorials/core/access-control/quick-start)
 
 ### Show Case: Data Marketplace
 
-[Data Marketplace Overview](https://docs.bnbchain.org/greenfield-docs/docs/tutorials/data-marketplace/overview)
+[Data Marketplace Overview](/docs/tutorials/app/data-marketplace/overview)
 
 ## Developer Starter Kit
 
@@ -106,7 +106,7 @@ Follow the decision-making guide below, to see which resource is recommended for
 
 - [Bundle service](https://docs.nodereal.io/docs/greenfield-bundle-service)
 
-- [Web hosting](https://docs.bnbchain.org/greenfield-docs/docs/tutorials/dapp/4everland-hosting/overview)
+- [Web hosting](/docs/tutorials/middleware/web-hosting/4everland-hosting/overview)
 
 - [BSC developer tools](https://docs.bnbchain.org/docs/learn/ecosystem)
 

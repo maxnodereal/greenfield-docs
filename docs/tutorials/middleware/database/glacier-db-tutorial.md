@@ -17,7 +17,7 @@ Our journey will include utilizing Glacier DeVector for efficient data managemen
 
 Glacier DeVector is a decentralized vector database built on top of Greenfield blockchain, seamlessly integrated into the AI ecosystem.
 
-![](../../../static/asset/glacierdb.png)
+![](../../../../static/asset/glacierdb.png)
 
 
 ## Prerequisites

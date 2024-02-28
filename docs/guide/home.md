@@ -37,7 +37,7 @@ Get familiar with the Greenfield Blockchain and explore its main modules.
 
 Start building dapps to create value based on the data assets and its related economy.
 - [An overview about programmability on Greenfield](../tutorials/overview.md)
-- [Start building with SDK](../tutorials/access-control/quick-start.mdx)
+- [Start building with SDK](/docs/tutorials/core/access-control/quick-start.mdx)
 
 ## Help & Support 
 Check out the Greenfield Developer community for technical support.

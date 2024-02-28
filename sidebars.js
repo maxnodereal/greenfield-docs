@@ -297,79 +297,118 @@ const sidebars = {
       items:[
          {
           type: "category",
-          label: "How to Build Data Marketplace",
+          label: "Get Started",
           collapsible: true,
           collapsed: true,
-          link: {type:'doc', id:'tutorials/data-marketplace/overview'},
+          link: {type:'doc', id:'tutorials/get-started/file-management/overview'},
           items:[
-            "tutorials/data-marketplace/overview",
+            "tutorials/get-started/file-management/overview",
+            "tutorials/get-started/cmd-access-control",
+          ]
+        },
+        {
+          type: "category",
+          label: "Greenfield App",
+          collapsible: true,
+          collapsed: true,
+          link: {type:'doc', id:'tutorials/app/overview'},
+          items:[
             {
-              type: 'link',
-              label: 'Data Marketplace BSC Mainnet Demo', // The link label
-              href: 'https://marketplace.greenfield-sp.bnbchain.org/index.html',
+              type: "category",
+              label: "AI",
+              collapsible: true,
+              collapsed: true,
+              items:[
+                "tutorials/app/ai/hugging-face-intro",
+              ]
             },
             {
-              type: 'link',
-              label: 'Data Marketplace BSC Testnet Demo', // The link label
-              href: 'https://marketplace.greenfield-sp.bnbchain.org/bsc-testnet.html',
+              type: "category",
+              label: "Data Marketplace",
+              collapsible: true,
+              collapsed: true,
+              items:[
+                "tutorials/app/data-marketplace/overview",
+              ]
             },
-             {
-              type: 'link',
-              label: 'Data Marketplace opBNB Testnet Demo', // The link label
-              href: 'https://marketplace.greenfield-sp.bnbchain.org/opbnb-testnet.html',
+            {
+              type: "category",
+              label: "File Management",
+              collapsible: true,
+              collapsed: true,
+              items:[
+               "tutorials/app/file-management/basic-file-management",
+               "tutorials/app/file-management/js-file-managemet",
+               "tutorials/app/file-management/batch-upload",
+               "tutorials/app/file-management/resumable-upload/overview",
+              ]
             },
           ]
         },
         {
           type: "category",
-          label: "Greenfield CLI",
+          label: "Greenfield Middleware",
           collapsible: true,
           collapsed: true,
-          link: {type:'doc', id:'tutorials/cli/file-management/overview'},
+          link: {type:'doc', id:'tutorials/middleware/web-hosting/4everland-hosting/overview'},
           items:[
-            "tutorials/cli/file-management/overview",
-            "tutorials/cli/cmd-access-control",
-            "tutorials/cli/mirror",
+            {
+              type: "category",
+              label: "Web Hosting",
+              collapsible: true,
+              collapsed: true,
+              items:[
+                "tutorials/middleware/web-hosting/4everland-hosting/overview",
+                "tutorials/middleware/web-hosting/hosting-websites/overview"
+              ]
+            },
+            {
+              type: "category",
+              label: "Database",
+              collapsible: true,
+              collapsed: true,
+              items:[
+                "tutorials/middleware/database/glacier-db-tutorial",
+              ]
+            },
+            {
+              type: "category",
+              label: "NFT Storage",
+              collapsible: true,
+              collapsed: true,
+              items:[
+               "tutorials/middleware/nft-storage/overview",
+
+              ]
+            },
+
+
+          ]
+
+         },
+         {
+          type: "category",
+          label: "Greenfield Core",
+          collapsible: true,
+          collapsed: true,
+          link: {type:'doc', id:'tutorials/middleware/web-hosting/4everland-hosting/overview'},
+          items:[
+            {
+              type: "category",
+              label: "Access Control",
+              collapsible: true,
+              collapsed: true,
+              items:[
+                    "tutorials/core/access-control/quick-start",
+                    "tutorials/core/access-control/access-control",
+                    "tutorials/core/access-control/cross-chain",
+                ]
+              },
+              "tutorials/core/mirror",
+              "tutorials/core/dapp-integration",
           ]
         },
-        {
-          type: "category",
-          label: "Greenfield Demos",
-          collapsible: true,
-          collapsed: true,
-          link: {type:'doc', id:'tutorials/dapp/overview'},
-          items:[
-            "tutorials/dapp/hosting-websites/overview",
-             "tutorials/dapp/nft-storage/overview",
-            "tutorials/dapp/file-management/overview",
-            "tutorials/dapp/js-file-management/overview",
-            "tutorials/dapp/resumable-upload/overview",
-            "tutorials/dapp/4everland-hosting/overview",
-          ]
-        },
-        {
-          type: "category",
-          label: "Access Control",
-          collapsible: true,
-          collapsed: true,
-          link: {type:'doc', id:'tutorials/access-control/access-control'},
-          items:[
-            "tutorials/access-control/access-control",
-            "tutorials/access-control/cross-chain",
-            "tutorials/access-control/quick-start",
-          ]
-        },
-        {
-          type: "category",
-          label: "Artificial Intelligence",
-          collapsible: true,
-          collapsed: true,
-          link: {type:'doc', id:'tutorials/ai/hugging-face-intro'},
-          items:[
-            "tutorials/ai/hugging-face-intro",
-            "tutorials/ai/glacier-db-tutorial",
-          ]
-        }
+
       ]
     },
   ],

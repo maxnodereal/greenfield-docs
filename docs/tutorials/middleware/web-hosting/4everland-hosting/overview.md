@@ -1,5 +1,5 @@
 ---
-title: One-stop Hosting Services
+title: 4Everland One-stop Hosting Services
 description: How to use $Everland for hosting websites.
 keywords: [BNB Greenfield, Web hosting, 4Everland]
 order: 4

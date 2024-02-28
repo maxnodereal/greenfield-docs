@@ -2,7 +2,7 @@
 title: Cross Chain Access Control by SDK
 description: How to use the go-SDK library to transfer permission control over objects to the smart contract on BSC and allowing on-chain management.
 keywords: [BNB Greenfield, Access control, Permission]
-order: 3
+order: 2
 ---
 
 # Cross Chain Access Control by SDK
@@ -68,7 +68,7 @@ go mod tidy
 
 ### Test a simple function
 
-You can refer to the [overview](../dapp/file-management/overview.md) to learn about how to create a simple `main.go`
+You can refer to the [overview](/docs/tutorials/app/file-management/basic-file-management) to learn about how to create a simple `main.go`
 
 If everything is set up correctly, your code will be able to connect to the Greenfield node and return the chain data as shown above.
 
