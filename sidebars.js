@@ -324,6 +324,15 @@ const sidebars = {
             },
             {
               type: "category",
+              label: "DeSoc",
+              collapsible: true,
+              collapsed: true,
+              items:[
+                "tutorials/app/desoc/desoc-tutorial",
+              ]
+            },
+            {
+              type: "category",
               label: "Data Marketplace",
               collapsible: true,
               collapsed: true,
