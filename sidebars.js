@@ -419,6 +419,24 @@ const sidebars = {
               "tutorials/core/dapp-integration",
           ]
         },
+        {
+          type: "category",
+          label: "Greenfield for AI",
+          collapsible: true,
+          collapsed: true,
+          link: {type:'doc', id:'tutorials/app/ai/hugging-face-intro'},
+          items:[
+              "tutorials/app/ai/hugging-face-intro",
+              "tutorials/middleware/database/glacier-db-tutorial",
+              "tutorials/app/data-marketplace/overview",
+              "tutorials/app/file-management/batch-upload",
+              {
+                type: 'link',
+                label: 'AI Dev Tools', // The link label
+                href: 'https://www.bnbchain.org/en/dev-tools?tag=AI&chain=greenfield',
+            },
+          ]
+        },
 
       ]
     },

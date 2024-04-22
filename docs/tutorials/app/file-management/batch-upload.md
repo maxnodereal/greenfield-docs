@@ -1,5 +1,5 @@
 ---
-title: Batch operations
+title: Dataset Batch operations
 order: 2
 ---
 
@@ -29,6 +29,12 @@ Create a temporary account at runtime and grant it full permissions to create ob
 In this approach, your primary account only needs to send a transaction to Greenfield to grant permissions to the temporary 
 account. For each object to be uploaded, the temporary account will be used to broadcast the transaction to the Greenfield Chain. 
 There is no further interaction required from the primary account. Please note, the temporary account does not need to be deposited.
+
+### Bundle Service
+Storing small files in Greenfield is inefficient due to the metadata stored on the blockchain being larger than the files themselves. This leads to higher costs for users. Additionally, Greenfield Blockchain has a capacity limit for processing files simultaneously.
+
+To address this issue, we have proposed [BEP-323: Bundle Format For Greenfield](https://github.com/bnb-chain/BEPs/pull/323). This repository contains the Golang version of the bundle format, which guides users on aggregating objects into a bundle and parsing a bundled object into separate objects.
+
 
 
 ## Temporary Account Showcase
@@ -147,3 +153,72 @@ time.Sleep(3 * time.Second)
 // Upload the object to Greenfield Storage Provider
 cli.PutObject(ctx, "yourBucketName", "yourObjectName", int64(buffer.Len()), bytes.NewReader(buffer.Bytes()), types.PutObjectOptions{})
 ```
+
+## Bundle Service Example
+Here is the guide for how to aggregate batch objects as a bundle, and how to parse a bundled object. As for how to interact with Greenfield, you should refer to 【Greenfield GO SDK](https://github.com/bnb-chain/greenfield-go-sdk).
+
+### Aggregate various objects as bundle
+Follow the steps below to aggregate multiple objects into a single bundle.
+
+1. Use the `NewBundle `function to create an empty bundle.
+
+```go
+// Assemble above two objects into a bundle object
+    bundle, err := bundle.NewBundle()
+    handleErr(err, "NewBundle")
+```
+
+2. Use the bundle's `AppendObject` method to add objects to the bundle individually.
+```go
+    _, err = bundle.AppendObject("object1", bytes.NewReader(buffer1.Bytes()), nil)
+    handleErr(err, "AppendObject")
+    _, err = bundle.AppendObject("object2", bytes.NewReader(buffer2.Bytes()), nil)
+    handleErr(err, "AppendObject")
+```
+
+3. Use the bundle's `FinalizeBundle` method to seal the bundle, preventing any further objects from being added.
+```go
+    bundledObject, totalSize, err := bundle.FinalizeBundle()
+    handleErr(err, "FinalizeBundle")
+```
+
+4. To release resources after use, utilize the Close method of the bundle.
+```go
+ defer bundle.Close()
+```
+
+Full example [here](https://github.com/bnb-chain/greenfield-bundle-sdk/blob/master/examples/upload_bundle.go)
+
+### Extract objects from bundled object
+Follow the steps below to extract various objects from a bundle.
+
+1. Open the bundled object as a bundle instance using `NewBundleFromFile`.
+```go
+// Extract objects from bundled object
+    bundle, err := bundle.NewBundleFromFile(bundleFile.Name())
+    handleErr(err, "NewBundleFromFile")
+```
+2. Retrieve all the objects' meta within the bundle using the bundle's `GetBundleObjectsMeta` method.
+```go
+// Extract objects from bundled object
+    objMeta, err := bundle.GetBundleObjectsMeta(bundleFile.Name())
+    handleErr(err, "GetBundleObjectsMeta")
+```
+3. Access various objects one by one using the bundle's `GetObject` method.
+```go
+    obj1, size, err := bundle.GetObject("object1")
+    if err != nil || obj1 == nil || size != singleObjectSize {
+        handleErr(fmt.Errorf("parse object1 in bundled object failed: %v", err), "GetObject")
+    }
+    obj2, size, err := bundle.GetObject("object2")
+    if err != nil || obj2 == nil || size != singleObjectSize {
+        handleErr(fmt.Errorf("parse object2 in bundled object failed: %v", err), "GetObject")
+    }
+```
+
+4. To release resources after use, utilize the Close method of the bundle.
+```go
+ defer bundle.Close()
+```
+
+Full example [here](https://github.com/bnb-chain/greenfield-bundle-sdk/blob/master/examples/download_bundle.go)
